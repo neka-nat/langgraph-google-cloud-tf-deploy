@@ -10,7 +10,7 @@ This repository is for the Terraform deployment of LangGraph on Google Cloud.
 
 ## Architecture
 
-
+![Architecture](./architecture/gcp_langgraph_arch.png)
 
 ## Quick Start
 
