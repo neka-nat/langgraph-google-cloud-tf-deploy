@@ -38,4 +38,10 @@ terraform plan
 terraform apply
 ```
 
+Cloud Runのみ再度デプロイする場合
+
+```bash
+terraform apply -replace=module.cloud-run.google_cloud_run_v2_service.app
+```
+
 When finished, you can access the LangGraph API at `https://<service-name>-<project-id>.<region>.run.app/docs` .
