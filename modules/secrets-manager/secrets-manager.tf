@@ -29,14 +29,11 @@ resource "google_secret_manager_secret_version" "this" {
 }
 
 resource "google_secret_manager_secret_iam_member" "accessor" {
-  for_each = {
-    for sa in var.accessors :
-    sa => sa
-  }
-  project    = var.gcp_project_id
-  secret_id  = google_secret_manager_secret.this["OPENAI_API_KEY"].secret_id
-  role       = "roles/secretmanager.secretAccessor"
-  member     = "serviceAccount:${each.value}"
+  count     = length(var.accessors)
+  project   = var.gcp_project_id
+  secret_id = google_secret_manager_secret.this["OPENAI_API_KEY"].secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${tolist(var.accessors)[count.index]}"
   depends_on = [google_secret_manager_secret.this]
 }
 
